@@ -8,7 +8,8 @@ import (
 )
 
 func main() {
-	create("sample", "csv")
+	// create("sample", "csv")
+	// read("sample", "csv")
 }
 
 // func create
@@ -29,4 +30,23 @@ func create(fname, fformat string) {
 		log.Fatal(errWriter)
 	}
 	writer.Flush()
+}
+
+// func read
+func read(fname, fformat string) {
+	csvf, err := os.Open(fmt.Sprint(fname + "." + fformat))
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	reader, err := csv.NewReader(csvf).ReadAll()
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	for _, r := range reader {
+		fmt.Println(r)
+	}
+
 }
